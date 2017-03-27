@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int string_length(char aString[]);
 int string_compare(char string1[], char string2[]);
-int string_concat(char string1[], char string2[]);
+char* string_concat(char string1[], char string2[]);
 
 int main(int argc, char *argv[]) {
     printf("The string %s is %i characters long.\n", argv[1], string_length(argv[1]));
@@ -42,22 +43,22 @@ int string_compare(char string1[], char string2[]) {
 		}
 	}
 	else {
-		equality = 0
+		equality = 0;
 	}
 	return equality;
 }
 
-const char* string_concat(char string1[], char string2[]) {
+char* string_concat(char string1[], char string2[]) {
 	int s1_length = string_length(string1);
 	int s2_length = string_length(string2);
 	int new_length = s1_length + s2_length + 1;
-	char new_string[new_length]; 
-	for (int i = 0; i <= s1_length; i++) {
+	char *new_string = malloc(sizeof(char) * new_length); 
+	for (int i = 0; i < s1_length; i++) {
 		new_string[i] = string1[i];
 	}
 	
-	for (int i = s1_length + 1; i <= new_length; i++) {
-		new_string[i] = string2[i];
+	for (int i = s1_length; i <= new_length; i++) {
+		new_string[i] = string2[i - s2_length];
 	}
 	return new_string;
 }
